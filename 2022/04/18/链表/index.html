@@ -377,7 +377,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    882
+                    1.1k
                 </div>
                 
 
@@ -507,7 +507,77 @@ ListNode<span class="token operator">*</span> <span class="token function">FindL
 	<span class="token keyword">return</span> shot<span class="token punctuation">;</span>
 
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>（2）.当一链表有环一链表无环时<br>    无相交<br>（3).当两链表都有环（入环节点为loop1，loop2）<br>        1）.两个链表在环前就相交了，此时则为两链表都无环时的情况（将入环节点看作尾节点）<br>        2）各自成环：loop1在向下走的过程中遇不上loop2，无相交<br>        3）有不同的入环节点：loop1向下走的过程中遇上loop2，return（loop1或loop2）</p>
+<p>（2）.当一链表有环一链表无环时<br>    无相交</p>
+<p>（3).当两链表都有环（入环节点为loop1，loop2）<br>        1).此时则为两链表都无环时的情况（将入环节点看作尾节链表在环前就相交点）</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ListNode <span class="token operator">*</span><span class="token function">Sameentrypoint</span><span class="token punctuation">(</span>ListNode<span class="token operator">*</span>node1<span class="token punctuation">,</span>ListNode<span class="token operator">*</span>node2<span class="token punctuation">,</span>ListNode<span class="token operator">*</span>loop<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	ListNode <span class="token operator">*</span>head1<span class="token operator">=</span>node1<span class="token punctuation">;</span>
+	ListNode <span class="token operator">*</span>head2<span class="token operator">=</span>node2<span class="token punctuation">;</span>
+	<span class="token keyword">int</span> n<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">while</span><span class="token punctuation">(</span>node1<span class="token operator">!=</span>loop<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+		node1<span class="token operator">=</span>node1<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>
+		<span class="token operator">++</span>n<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">while</span><span class="token punctuation">(</span>node2<span class="token operator">!=</span>loop<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	 node2<span class="token operator">=</span>node2<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>
+	 <span class="token operator">--</span>n<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+ListNode <span class="token operator">*</span>shot<span class="token operator">=</span>n<span class="token operator">&gt;</span><span class="token number">0</span><span class="token operator">?</span>head2<span class="token operator">?</span>head1<span class="token punctuation">;</span>
+ListNode <span class="token operator">*</span>elder<span class="token operator">=</span>n<span class="token operator">&gt;</span><span class="token number">0</span><span class="token operator">?</span>head1<span class="token operator">?</span>head2<span class="token punctuation">;</span>
+n<span class="token operator">=</span><span class="token function">abs</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">while</span><span class="token punctuation">(</span>shot<span class="token operator">!=</span>elder<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span>n<span class="token operator">&gt;</span><span class="token number">0</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		elder<span class="token operator">=</span>elder<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>
+		n<span class="token operator">--</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+		shot<span class="token operator">=</span>shot<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>
+		elder<span class="token operator">=</span>elder<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">return</span> shot<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<pre><code>    2）各自成环：loop1在向下走的过程中遇不上loop2，无相交
+    3）有不同的入环节点：loop1向下走的过程中遇上loop2，return（loop1或loop2）
+</code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ListNode<span class="token operator">*</span><span class="token function">samering</span><span class="token punctuation">(</span>ListNode <span class="token operator">*</span>loop1<span class="token punctuation">,</span>ListNode<span class="token operator">*</span>loop2<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	ListNode <span class="token operator">*</span>loop<span class="token operator">=</span>loop1<span class="token punctuation">;</span>
+	loop1<span class="token operator">=</span>loop1<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>
+	<span class="token keyword">while</span><span class="token punctuation">(</span>loop1<span class="token operator">!=</span>loop<span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		<span class="token keyword">if</span><span class="token punctuation">(</span>loop1<span class="token operator">==</span>loop2<span class="token punctuation">)</span><span class="token keyword">return</span> loop1<span class="token punctuation">;</span><span class="token comment">//return loop2;</span>
+		loop1<span class="token operator">=</span>loop1<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<p>双环情况下的判断函数</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ListNode <span class="token operator">*</span><span class="token function">Doublelooplist</span><span class="token punctuation">(</span>ListNode<span class="token operator">*</span>node1<span class="token punctuation">,</span>ListNode<span class="token operator">*</span>node2<span class="token punctuation">,</span>ListNode<span class="token operator">*</span>loop1<span class="token punctuation">,</span>ListNode<span class="token operator">*</span>loop2<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span>loop1<span class="token operator">==</span>loop2<span class="token punctuation">)</span>
+		<span class="token keyword">return</span> <span class="token function">Sameentrypoint</span><span class="token punctuation">(</span>node1<span class="token punctuation">,</span>node2<span class="token punctuation">,</span>loop1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">else</span> <span class="token keyword">return</span> <span class="token function">samering</span><span class="token punctuation">(</span>loop1<span class="token punctuation">,</span>loop2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>主代码</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ListNode <span class="token operator">*</span><span class="token function">Findingintersectingnodes</span><span class="token punctuation">(</span>ListNode <span class="token operator">*</span>node1<span class="token punctuation">,</span>ListNode<span class="token operator">*</span>node2<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	ListNode<span class="token operator">*</span>loop1<span class="token operator">=</span><span class="token function">FindListIncorporate</span><span class="token punctuation">(</span>node1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	ListNode<span class="token operator">*</span>loop2<span class="token operator">=</span><span class="token function">FindListIncorporate</span><span class="token punctuation">(</span>node2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+	<span class="token keyword">if</span><span class="token punctuation">(</span>loop1<span class="token operator">!=</span><span class="token keyword">nullptr</span><span class="token operator">&amp;&amp;</span>loop2<span class="token operator">!=</span><span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token keyword">return</span> <span class="token function">Doublelooplist</span><span class="token punctuation">(</span>node1<span class="token punctuation">,</span>node2<span class="token punctuation">,</span>loop1<span class="token punctuation">,</span>loop2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span>loop1<span class="token operator">==</span><span class="token keyword">nullptr</span><span class="token operator">&amp;&amp;</span>loop2<span class="token operator">==</span><span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token keyword">return</span> <span class="token function">Ringlesslist</span><span class="token punctuation">(</span>node1<span class="token punctuation">,</span>node2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -747,53 +817,36 @@ ListNode<span class="token operator">*</span> <span class="token function">FindL
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/04/18/%E9%93%BE%E8%A1%A8/">
+                <a href="/2022/04/23/%E4%BA%8C%E5%8F%89%E6%A0%91/">
                     <div class="card-image">
                         
-                        <img src="/medias/images/2.jpg" class="responsive-img" alt="链表">
                         
-                        <span class="card-title">链表</span>
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            链表
+                            
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-18
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-04-23
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
-                                    数据结构与算法
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            HMM
                             
                         </span>
                     </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">算法</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">数据结构</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -937,7 +990,7 @@ ListNode<span class="token operator">*</span> <span class="token function">FindL
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1.2k</span>&nbsp;字
+                class="white-color">1.3k</span>&nbsp;字
             
             
             
