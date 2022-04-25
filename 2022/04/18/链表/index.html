@@ -543,9 +543,7 @@ n<span class="token operator">=</span><span class="token function">abs</span><sp
 
 
 
-<pre><code>    2）各自成环：loop1在向下走的过程中遇不上loop2，无相交
-    3）有不同的入环节点：loop1向下走的过程中遇上loop2，return（loop1或loop2）
-</code></pre>
+<p>2）各自成环：loop1在向下走的过程中遇不上loop2，无相交<br>3）有不同的入环节点：loop1向下走的过程中遇上loop2，return（loop1或loop2）</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ListNode<span class="token operator">*</span><span class="token function">samering</span><span class="token punctuation">(</span>ListNode <span class="token operator">*</span>loop1<span class="token punctuation">,</span>ListNode<span class="token operator">*</span>loop2<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
 	ListNode <span class="token operator">*</span>loop<span class="token operator">=</span>loop1<span class="token punctuation">;</span>
